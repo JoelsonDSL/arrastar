@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo Tubarões - Arrastar e Soltar</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Nunito, sans-serif;
+    background: linear-gradient(to bottom, #0099cc, #003366);
+    min-height:100vh;
+    color:white;
+    text-align:center;
+}
+
+/* CAPA */
+<!-- TROQUE SOMENTE O BLOCO #capa POR ESTE -->
+
+#capa{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+    url('GP012458.JPG');
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+}
+
+#capa h1{
+    font-size:55px;
+    margin-bottom:15px;
+    text-shadow:2px 2px 8px black;
+}
+
+#capa p{
+    font-size:22px;
+    max-width:700px;
+    margin-bottom:30px;
+    text-shadow:2px 2px 8px black;
+}
+
+#btnStart{
+    background:#00ccff;
+    color:#003366;
+    border:none;
+    padding:18px 40px;
+    font-size:24px;
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+#btnStart:hover{
+    transform:scale(1.05);
+    background:white;
+}
+
+/* JOGO */
+#jogo{
+    display:none;
+    padding:20px;
+}
+
+h2{
+    margin-bottom:10px;
+}
+
+.game{
+    max-width:1000px;
+    margin:auto;
+}
+
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    color:black;
+    padding:15px;
+    border-radius:12px;
+    width:180px;
+    cursor:grab;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.dropzones{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.zone{
+    background:rgba(255,255,255,0.15);
+    border:3px dashed white;
+    border-radius:15px;
+    padding:20px;
+    min-height:160px;
+}
+
+.zone h3{
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.correct{
+    background:#00cc66 !important;
+    border:none !important;
+}
+
+.wrong{
+    background:#cc3333 !important;
+}
+
+#mensagem{
+    margin-top:30px;
+    font-size:24px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CAPA -->
+<section id="capa">
+    <h1>Jogo dos Tubarões</h1>
+    <p>Todo mundo já ouviu falar sobre diversos tipos de tubarão,
+      mas vamos testar o que você sabe mesmo sobre as característicasdesses fantásticos animais?</p>
+    <button id="btnStart">Começar</button>
+</section>
+
+<!-- JOGO -->
+<section id="jogo">
+
+<h2>Arraste cada característica para o tubarão correto.</h2>
+
+<div class="game">
+
+<div class="cards">
+
+<div class="card" draggable="true" id="c2" data-answer="baleia">
+Maior peixe do mundo
+</div>
+
+<div class="card" draggable="true" id="c1" data-answer="martelo">
+Cabeça em formato de martelo
+</div>
+
+<div class="card" draggable="true" id="c4" data-answer="tigre">
+Corpo com listras escuras
+</div>
+
+<div class="card" draggable="true" id="c3" data-answer="branco">
+Predador famoso do cinema
+</div>
+
+</div>
+
+<div class="dropzones">
+
+<div class="zone" data-zone="martelo">
+<h3>Tubarão-Martelo</h3>
+</div>
+
+<div class="zone" data-zone="baleia">
+<h3>Tubarão-Baleia</h3>
+</div>
+
+<div class="zone" data-zone="branco">
+<h3>Tubarão-Branco</h3>
+</div>
+
+<div class="zone" data-zone="tigre">
+<h3>Tubarão-Tigre</h3>
+</div>
+
+</div>
+
+<div id="mensagem"></div>
+
+</div>
+</section>
+
+<script>
+document.getElementById("btnStart").onclick = function(){
+    document.getElementById("capa").style.display = "none";
+    document.getElementById("jogo").style.display = "block";
+};
+
+const cards = document.querySelectorAll('.card');
+const zones = document.querySelectorAll('.zone');
+const mensagem = document.getElementById('mensagem');
+
+let acertos = 0;
+
+cards.forEach(card => {
+    card.addEventListener('dragstart', dragStart);
+});
+
+zones.forEach(zone => {
+    zone.addEventListener('dragover', dragOver);
+    zone.addEventListener('drop', dropCard);
+});
+
+function dragStart(e){
+    e.dataTransfer.setData("text", e.target.id);
+}
+
+function dragOver(e){
+    e.preventDefault();
+}
+
+function dropCard(e){
+    e.preventDefault();
+
+    const cardId = e.dataTransfer.getData("text");
+    const card = document.getElementById(cardId);
+
+    const resposta = card.dataset.answer;
+    const zona = e.currentTarget.dataset.zone;
+
+    if(resposta === zona){
+        e.currentTarget.appendChild(card);
+        e.currentTarget.classList.add("correct");
+        card.style.cursor = "default";
+        card.setAttribute("draggable","false");
+        acertos++;
+
+        if(acertos === 4){
+            mensagem.innerHTML = "🎉 Parabéns! Você acertou tudo!";
+        }
+
+    }else{
+        e.currentTarget.classList.add("wrong");
+
+        setTimeout(()=>{
+            e.currentTarget.classList.remove("wrong");
+        },500);
+    }
+}
+</script>
+
+</body>
+</html>
