@@ -3,193 +3,182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jogo Tubarões - Arrastar e Soltar</title>
+<title>Tubarões Sem Mistério</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-<style>
 body{
   font-family:'Nunito',sans-serif;
-  background:url('fundo.JPG') no-repeat center/cover;
-  display:flex;justify-content:center;align-items:center;
-  height:100vh;margin:0;
+  background:url('fundo.jpg') no-repeat center center/cover;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
+/* CAPA */
 .container{
-  background:#fff;color:#000;padding:30px;border-radius:20px;
-  width:95%;max-width:560px;min-height:85vh;text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
-  transition:opacity .3s ease;
+  background:rgba(255,255,255,0.95);
+  color:#000;
+  padding:30px;
+  border-radius:20px;
+  width:95%;
+  max-width:700px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
-.logo{max-width:140px;margin:auto}
-
-img {
-  width: 100%;
-  max-height: 250px;
-  object-fit: cover;
-  border-radius: 12px;
+.logo{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-bottom:20px;
 }
 
-.top-bar{display:flex;justify-content:space-between;margin-bottom:10px}
+h1{
+  margin-bottom:15px;
+  color:#003366;
+}
 
-.progress{height:8px;background:#ddd;border-radius:10px;margin-bottom:10px}
-.progress-bar{height:100%;width:0%;background:#00bfff;border-radius:10px;transition:.3s}
+p{
+  font-size:18px;
+  line-height:1.5;
+  margin-bottom:25px;
+}
 
 button{
-  width:100%;padding:16px;margin:8px 0;border:none;
-  border-radius:12px;background:#1dbfd6;font-weight:bold;
-  cursor:pointer;position:relative;overflow:hidden;
-  transition:.2s;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:#00c8ff;
+  color:#003366;
+  font-size:22px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
 }
 
-button::before{
-  content:"";
-  position:absolute;
-  top:0;left:-75%;
-  width:50%;height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
-  transform:skewX(-25deg);
-}
-
-button:hover::before{left:130%;transition:left .6s}
-button:hover{transform:scale(1.05)}
-button:active{transform:translateY(3px)}
-
-#nextBtn{display:none;background:#32cd32}
-
-#btnStart{
-    background:#00ccff;
-    color:#003366;
-    border:none;
-    padding:18px 40px;
-    font-size:24px;
-    border-radius:15px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-#btnStart:hover{
-    transform:scale(1.05);
-    background:white;
+button:hover{
+  transform:scale(1.03);
+  background:#ffffff;
 }
 
 /* JOGO */
 #jogo{
-    display:none;
-    padding:20px;
+  display:none;
+  width:100%;
+  padding:30px;
+  text-align:center;
+  color:white;
 }
 
-h2{
-    margin-bottom:10px;
-}
-
-.game{
-    max-width:1000px;
-    margin:auto;
+#jogo h2{
+  margin-bottom:25px;
+  text-shadow:2px 2px 6px black;
 }
 
 .cards{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:15px;
-    margin-bottom:40px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-bottom:35px;
 }
 
 .card{
-    background:white;
-    color:black;
-    padding:15px;
-    border-radius:12px;
-    width:180px;
-    cursor:grab;
-    font-weight:bold;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:12px;
+  width:190px;
+  cursor:grab;
+  font-weight:bold;
 }
 
 .dropzones{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 
 .zone{
-    background:rgba(255,255,255,0.15);
-    border:3px dashed white;
-    border-radius:15px;
-    padding:20px;
-    min-height:160px;
+  background:rgba(255,255,255,0.18);
+  border:3px dashed white;
+  border-radius:15px;
+  padding:20px;
+  min-height:160px;
 }
 
 .zone h3{
-    font-size:20px;
-    margin-bottom:15px;
+  margin-bottom:15px;
 }
 
 .correct{
-    background:#00cc66 !important;
-    border:none !important;
+  background:#00cc66 !important;
+  border:none !important;
 }
 
 .wrong{
-    background:#cc3333 !important;
+  background:#cc3333 !important;
 }
 
 #mensagem{
-    margin-top:30px;
-    font-size:24px;
-    font-weight:bold;
+  margin-top:30px;
+  font-size:26px;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container" id="game">
-  <img src="./fundo.PNG" class="logo">
-  <h1> Tubarões Sem Mistério</h1>
+<!-- CAPA -->
+<div class="container" id="capa">
+  <img src="fundo.jpg" class="logo">
+
+  <h1>Tubarões Sem Mistério</h1>
+
   <p>
     Este jogo foi desenvolvido para explorar, de forma interativa e educativa,
-      as principais características de diferentes espécies de tubarões. Ao relacionar
-      pistas e adaptações com cada animal, o jogador amplia seus conhecimentos sobre
-      a diversidade desses peixes cartilaginosos e reconhece sua importância para o
-      equilíbrio dos ecossistemas marinhos. Este jogo é um produto desenvolvido pelo
-      Laboratório de Ecossitemas Aquáticos (LEAqua - UFRPE).
-
-
+    as principais características de diferentes espécies de tubarões.
+    Ao relacionar pistas e adaptações com cada animal, o jogador amplia seus conhecimentos
+    sobre a diversidade desses peixes cartilaginosos e reconhece sua importância para o
+    equilíbrio dos ecossistemas marinhos.
+    <br><br>
+    Produto desenvolvido pelo Laboratório de Ecossistemas Aquáticos (LEAqua - UFRPE).
   </p>
-  <button onclick="showLevels()">COMEÇAR</button>
+
+  <button id="btnStart">COMEÇAR</button>
 </div>
 
+<!-- JOGO -->
 <section id="jogo">
 
-<h2>Arraste cada característica para o tubarão correto.</h2>
-
-<div class="game">
+<h2>Arraste cada característica para o tubarão correto</h2>
 
 <div class="cards">
-
-<div class="card" draggable="true" id="c2" data-answer="baleia">
-Maior peixe do mundo
-</div>
 
 <div class="card" draggable="true" id="c1" data-answer="martelo">
 Cabeça em formato de martelo
 </div>
 
-<div class="card" draggable="true" id="c4" data-answer="tigre">
-Corpo com listras escuras
+<div class="card" draggable="true" id="c2" data-answer="baleia">
+Maior peixe do mundo
 </div>
 
 <div class="card" draggable="true" id="c3" data-answer="branco">
 Predador famoso do cinema
+</div>
+
+<div class="card" draggable="true" id="c4" data-answer="tigre">
+Corpo com listras escuras
 </div>
 
 </div>
@@ -216,65 +205,67 @@ Predador famoso do cinema
 
 <div id="mensagem"></div>
 
-</div>
 </section>
 
 <script>
-document.getElementById("btnStart").onclick = function(){
+/* BOTÃO COMEÇAR */
+document.getElementById("btnStart").addEventListener("click", function(){
     document.getElementById("capa").style.display = "none";
     document.getElementById("jogo").style.display = "block";
-};
+    document.body.style.display = "block";
+});
 
+/* JOGO */
 const cards = document.querySelectorAll('.card');
 const zones = document.querySelectorAll('.zone');
 const mensagem = document.getElementById('mensagem');
 
 let acertos = 0;
 
-cards.forEach(card => {
-    card.addEventListener('dragstart', dragStart);
+cards.forEach(card=>{
+  card.addEventListener('dragstart',dragStart);
 });
 
-zones.forEach(zone => {
-    zone.addEventListener('dragover', dragOver);
-    zone.addEventListener('drop', dropCard);
+zones.forEach(zone=>{
+  zone.addEventListener('dragover',dragOver);
+  zone.addEventListener('drop',dropCard);
 });
 
 function dragStart(e){
-    e.dataTransfer.setData("text", e.target.id);
+  e.dataTransfer.setData("text",e.target.id);
 }
 
 function dragOver(e){
-    e.preventDefault();
+  e.preventDefault();
 }
 
 function dropCard(e){
-    e.preventDefault();
+  e.preventDefault();
 
-    const cardId = e.dataTransfer.getData("text");
-    const card = document.getElementById(cardId);
+  const cardId = e.dataTransfer.getData("text");
+  const card = document.getElementById(cardId);
 
-    const resposta = card.dataset.answer;
-    const zona = e.currentTarget.dataset.zone;
+  const resposta = card.dataset.answer;
+  const zona = e.currentTarget.dataset.zone;
 
-    if(resposta === zona){
-        e.currentTarget.appendChild(card);
-        e.currentTarget.classList.add("correct");
-        card.style.cursor = "default";
-        card.setAttribute("draggable","false");
-        acertos++;
+  if(resposta === zona){
+    e.currentTarget.appendChild(card);
+    e.currentTarget.classList.add("correct");
+    card.setAttribute("draggable","false");
+    card.style.cursor="default";
+    acertos++;
 
-        if(acertos === 4){
-            mensagem.innerHTML = "🎉 Parabéns! Você acertou tudo!";
-        }
-
-    }else{
-        e.currentTarget.classList.add("wrong");
-
-        setTimeout(()=>{
-            e.currentTarget.classList.remove("wrong");
-        },500);
+    if(acertos === 4){
+      mensagem.innerHTML="🎉 Parabéns! Você acertou tudo!";
     }
+
+  }else{
+    e.currentTarget.classList.add("wrong");
+
+    setTimeout(()=>{
+      e.currentTarget.classList.remove("wrong");
+    },500);
+  }
 }
 </script>
 
