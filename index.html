@@ -16,12 +16,10 @@ body{
   font-family:'Nunito',sans-serif;
   background:url('fundo.jpg') no-repeat center center/cover;
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  margin:0;
 }
 
-/* CAPA */
+/* CAPA CENTRALIZADA */
 .container{
   background:rgba(255,255,255,0.95);
   color:#000;
@@ -31,6 +29,23 @@ body{
   max-width:700px;
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+/* JOGO COM FUNDO NORMAL */
+#jogo{
+  display:none;
+  width:100%;
+  min-height:100vh;
+  padding:30px;
+  text-align:center;
+  color:white;
+
+  background:url('fundo.jpg') no-repeat center center/cover;
 }
 
 .logo{
