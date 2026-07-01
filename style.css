@@ -1,0 +1,330 @@
+/* ==========================================
+RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ==========================================
+BODY
+========================================== */
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:url("fundo.JPG") center center fixed;
+    background-size:cover;
+
+}
+
+/* ==========================================
+TELA INICIAL
+========================================== */
+
+.container{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:92%;
+    max-width:750px;
+
+    background:rgba(255,255,255,.94);
+
+    padding:35px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+}
+
+/* ==========================================
+LOGO
+========================================== */
+
+.logo-topo{
+
+    display:block;
+
+    width:340px;
+    max-width:90%;
+
+    margin:auto;
+    margin-bottom:25px;
+
+}
+
+/* ==========================================
+TÍTULOS
+========================================== */
+
+.container h1{
+
+    color:#003366;
+
+    font-size:38px;
+
+    margin-bottom:20px;
+
+}
+
+.container p{
+
+    color:#222;
+
+    font-size:19px;
+
+    line-height:1.7;
+
+    margin-bottom:30px;
+
+}
+
+/* ==========================================
+BOTÃO
+========================================== */
+
+button{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#00c8ff;
+
+    color:#003366;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+button:hover{
+
+    background:white;
+
+    transform:scale(1.03);
+
+}
+
+/* ==========================================
+ÁREA DO JOGO
+========================================== */
+
+#jogo{
+
+    display:none;
+
+    min-height:100vh;
+
+    padding:35px;
+
+    text-align:center;
+
+    background:url("fundo.JPG") center center fixed;
+    background-size:cover;
+
+}
+
+/* ==========================================
+TÍTULO DO JOGO
+========================================== */
+
+#jogo h2{
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:35px;
+
+    text-shadow:2px 2px 8px black;
+
+}
+
+/* ==========================================
+CARTÕES
+========================================== */
+
+.cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+    margin-bottom:45px;
+
+}
+
+.card{
+
+    width:220px;
+
+    padding:18px;
+
+    background:white;
+
+    color:black;
+
+    font-weight:bold;
+
+    border-radius:12px;
+
+    cursor:grab;
+
+    box-shadow:0 6px 15px rgba(0,0,0,.25);
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.card:active{
+
+    cursor:grabbing;
+
+}
+
+/* ==========================================
+ÁREAS DE SOLTAR
+========================================== */
+
+.dropzones{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+
+    gap:22px;
+
+}
+
+.zone{
+
+    min-height:180px;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    border:3px dashed white;
+
+    background:rgba(255,255,255,.15);
+
+    transition:.3s;
+
+}
+
+.zone h3{
+
+    color:white;
+
+    margin-bottom:15px;
+
+    text-shadow:2px 2px 6px black;
+
+}
+
+/* ==========================================
+RESPOSTA CORRETA
+========================================== */
+
+.correct{
+
+    background:#1bb84b !important;
+
+    border:3px solid #0c7d30 !important;
+
+}
+
+/* ==========================================
+RESPOSTA ERRADA
+========================================== */
+
+.wrong{
+
+    background:#d62828 !important;
+
+    border:3px solid #8b0000 !important;
+
+}
+
+/* ==========================================
+MENSAGEM FINAL
+========================================== */
+
+#mensagem{
+
+    margin-top:35px;
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    text-shadow:2px 2px 6px black;
+
+}
+
+/* ==========================================
+RESPONSIVO
+========================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        width:95%;
+        padding:25px;
+
+    }
+
+    .container h1{
+
+        font-size:30px;
+
+    }
+
+    .container p{
+
+        font-size:17px;
+
+    }
+
+    .card{
+
+        width:100%;
+
+    }
+
+}
